@@ -56,6 +56,7 @@ namespace DewCustomizeMod.patch
                      loc = p.Key;
                      gem = p.Value;
                      __result = AttrCustomizeResources.Config.enableGemMerge;
+                     return false;
                  }
              }
              loc = default;
