@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using DewCustomizeMod.config;
 using HarmonyLib;
+using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -36,6 +37,12 @@ public class GameManagerUtil
         //挂载伤害排行榜
         NetworkedManagerBase<ZoneManager>.instance.ClientEvent_OnZoneLoaded += DamageRanking;
 
+        
+        //挂载发送客户端需要同步的数据
+        NetworkedManagerBase<ZoneManager>.instance.ClientEvent_OnRoomLoaded += SendSynchronizeClient;
+
+        
+        
 
         LucidDreamEmbraceMortality();
         LucidDreamBonVoyage();
@@ -46,8 +53,103 @@ public class GameManagerUtil
         LucidDreamSparklingDreamFlask();
 
     }
-    
-    
+    public static void SendSynchronizeClient(EventInfoLoadRoom obj)
+    {
+        SendSynchronizeClient();
+    }
+
+    public static void SendSynchronizeClient()
+    {
+        var synchronizeClient = new SynchronizeClient
+        {
+            skillQGemCount = AttrCustomizeResources.Config.skillQGemCount,
+            skillWGemCount = AttrCustomizeResources.Config.skillWGemCount,
+            skillEGemCount = AttrCustomizeResources.Config.skillEGemCount,
+            skillRGemCount = AttrCustomizeResources.Config.skillRGemCount,
+            skillIdentityGemCount = AttrCustomizeResources.Config.skillIdentityGemCount,
+            skillMovementGemCount = AttrCustomizeResources.Config.skillMovementGemCount,
+        };
+
+        string text = JsonConvert.SerializeObject(synchronizeClient);
+        
+        Dew.CallDelayed(delegate
+        {
+            NetworkedManagerBase<ChatManager>.instance.BroadcastChatMessage(new ChatManager.Message
+            {
+                type = ChatManager.MessageType.Raw,
+                content = $"<size=10%>{text}</size>"
+            });
+        }, 200);
+    }
+
+    public static void ClientSyncData(ChatManager.Message obj)
+    {
+        if (NetworkedManagerBase<GameManager>.instance.isServer)
+        {
+            return;
+        }
+        
+        if (obj.args != null)
+        {
+            return;
+        }
+
+        if (obj.type != ChatManager.MessageType.Raw)
+        {
+            return;
+        }
+        
+        var content = obj.content;
+        if (content.StartsWith("<size=0%>{") && content.EndsWith("}</size>"))
+        {
+            string text = content.Substring("<size=0%>".Length,
+                content.Length - "<size=0%>".Length - "</size>".Length);
+
+            SynchronizeClient synchronizeClient = JsonConvert.DeserializeObject<SynchronizeClient>(text);
+            
+            AttrCustomizeResources.Config.skillQGemCount = synchronizeClient.skillQGemCount;
+            AttrCustomizeResources.Config.skillWGemCount = synchronizeClient.skillWGemCount;
+            AttrCustomizeResources.Config.skillEGemCount = synchronizeClient.skillEGemCount;
+            AttrCustomizeResources.Config.skillRGemCount = synchronizeClient.skillRGemCount;
+            AttrCustomizeResources.Config.skillIdentityGemCount = synchronizeClient.skillIdentityGemCount;
+            AttrCustomizeResources.Config.skillMovementGemCount = synchronizeClient.skillMovementGemCount;
+            
+            
+        }
+    }
+    public class SynchronizeClient
+    {
+        /**
+         * Q技能精华槽数量
+         */
+        public int skillQGemCount;
+
+        /**
+         * W技能精华槽数量
+         */
+        public int skillWGemCount;
+
+        /**
+         * E技能精华槽数量
+         */
+        public int skillEGemCount;
+
+        /**
+         * R技能精华槽数量
+         */
+        public int skillRGemCount;
+
+        /**
+         * 身份技能精华槽数量
+         */
+        public int skillIdentityGemCount;
+
+        /**
+         * 位移技能精华槽数量
+         */
+        public int skillMovementGemCount;
+    }
+
     private static void LucidDreamSparklingDreamFlask()
     {
         if (AttrCustomizeResources.Config.enableLucidDreamSparklingDreamFlask)
