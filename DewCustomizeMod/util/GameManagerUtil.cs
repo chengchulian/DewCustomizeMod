@@ -77,7 +77,7 @@ public class GameManagerUtil
             NetworkedManagerBase<ChatManager>.instance.BroadcastChatMessage(new ChatManager.Message
             {
                 type = ChatManager.MessageType.Raw,
-                content = $"<size=10%>{text}</size>"
+                content = $"<size=0%>{text}</size>"
             });
         }, 200);
     }
