@@ -665,6 +665,7 @@
         <Compile Include="patch\Star_Global_ShopRefreshPatch.cs" />
         <Compile Include="patch\Star_Global_StartSkillPatch.cs" />
         <Compile Include="patch\Star_Mist_ParryAllDirectionsPatch.cs" />
+        <Compile Include="patch\UI_Common_ChatBoxPatch.cs" />
         <Compile Include="patch\UI_InGame_Scoreboard_PlayerItem_SkillPatch.cs" />
         <Compile Include="patch\UI_InGame_SkillButtonsPatch.cs" />
         <Compile Include="patch\UI_InGame_SkillButton_GemGroupPatch.cs" />
