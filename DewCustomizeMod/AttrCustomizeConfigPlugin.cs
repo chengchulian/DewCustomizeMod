@@ -1,20 +1,18 @@
 ﻿using BepInEx;
 using DewCustomizeMod.controller;
-using DewCustomizeMod.i18n;
-using DewCustomizeMod.ui;
+using DewCustomizeMod.util;
 using HarmonyLib;
-using UnityEngine;
 
 namespace DewCustomizeMod
 {
-    [BepInPlugin("com.chengchulian.DewCustomizeMod.customizable", "Dew Customizable", "0.2.5")]
+    [BepInPlugin(AttrCustomizeConstant.PluginGuid, AttrCustomizeConstant.PluginName,AttrCustomizeConstant.PluginVersion)]
     public class AttrCustomizeConfigPlugin : BaseUnityPlugin
     {
         private void Awake()
         {
-            Logger.LogInfo("自定制Mod插件已加载");
+            Logger.LogInfo($"{AttrCustomizeConstant.PluginName} 插件已加载");
 
-            var harmony = new Harmony("com.chengchulian.DewCustomizeMod.customizable");
+            var harmony = new Harmony(AttrCustomizeConstant.PluginGuid);
             harmony.PatchAll(); 
             
             gameObject.AddComponent<UIStateController>();

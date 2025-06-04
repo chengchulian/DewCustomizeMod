@@ -84,7 +84,14 @@ public class GameManagerUtil
 
     public static void ClientSyncData(ChatManager.Message obj)
     {
-        if (NetworkedManagerBase<GameManager>.instance.isServer)
+        var gameManager = NetworkedManagerBase<GameManager>.instance;
+
+        if (gameManager == null)
+        {
+            return;
+        }
+        
+        if (gameManager.isServer)
         {
             return;
         }

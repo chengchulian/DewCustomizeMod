@@ -661,6 +661,7 @@
         <Compile Include="patch\RoomMonstersPatch.cs" />
         <Compile Include="patch\Se_HeroKnockedOutPatch.cs" />
         <Compile Include="patch\Se_MirageSkin_Delusion_DelusionalPatch.cs" />
+        <Compile Include="patch\Shrine_BossSoulPatch.cs" />
         <Compile Include="patch\Star_Global_ShopMoreItemsPatch.cs" />
         <Compile Include="patch\Star_Global_ShopRefreshPatch.cs" />
         <Compile Include="patch\Star_Global_StartSkillPatch.cs" />
