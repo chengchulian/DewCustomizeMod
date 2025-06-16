@@ -8,7 +8,7 @@ public static class AttrCustomizeConstant
     
     public const string PluginGuid = "com.chengchulian.DewCustomizeMod." + PluginName;
     public const string PluginName = "DewCustomizable";
-    public const string PluginVersion = "0.2.5";
+    public const string PluginVersion = "0.2.6";
     
     
 }
