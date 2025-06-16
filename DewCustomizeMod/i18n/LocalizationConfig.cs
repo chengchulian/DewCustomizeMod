@@ -1,6 +1,7 @@
 ﻿// 国际化语言表配置类
 
 using System.Collections.Generic;
+using DewCustomizeMod.util;
 
 namespace DewCustomizeMod.i18n
 {
@@ -12,7 +13,7 @@ namespace DewCustomizeMod.i18n
         {
             ["zh-CN"] = new()
             {
-                ["config_editor_title"] = "自定制v0.2.5（按 F8 显示/隐藏）",
+                ["config_editor_title"] = $"自定制v{AttrCustomizeConstant.PluginVersion}（按 F8 显示/隐藏）",
                 ["save_config"] = "💾 保存配置",
                 ["reset_config"] = "🔄 重置配置",
                 ["section_general"] = "🎮 通用设置",
@@ -98,7 +99,7 @@ namespace DewCustomizeMod.i18n
             },
             ["en-US"] = new()
             {
-                ["config_editor_title"] = "Game Config Editor (Press F8 to toggle)",
+                ["config_editor_title"] = $"Dew Customize v{AttrCustomizeConstant.PluginVersion} (Press F8 to toggle)",
                 ["save_config"] = "💾 Save Config",
                 ["reset_config"] = "🔄 Reset Config",
                 ["section_general"] = "🎮 General Settings",
