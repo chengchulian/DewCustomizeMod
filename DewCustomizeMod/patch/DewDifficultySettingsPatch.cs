@@ -1,10 +1,7 @@
-﻿using System;
-using System.Reflection;
-using DewCustomizeMod.util;
-using HarmonyLib;
-using UnityEngine;
+﻿using System.Reflection;
 using DewCustomizeMod.config;
 using DewCustomizeMod.util;
+using HarmonyLib;
 
 namespace DewCustomizeMod.patch
 {
